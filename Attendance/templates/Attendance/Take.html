@@ -128,18 +128,18 @@
 					</div>
 				</div>
 				<section>
-					<div class="modal fade " id="Modal_Duplicate_Message" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Modal_Duplicate_MessageLabel" aria-hidden="false">
+					<div class="modal fade" id="Modal_Duplicate_Message"  data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Modal_Duplicate_MessageLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="Modal_Duplicate_MessageLabel">Attendance Already Exist</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">Attendance for selected lecture type already exist for today, can not take multiple attendance for same lecture type.</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Okay</button>
+									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Okay</button>
 								</div>
 							</div>
 						</div>
@@ -203,9 +203,8 @@
 					success: function (response) {
 
 						if (response.hasOwnProperty("Error")) {
-							$("#Modal_Duplicate_Message").modal();
+							$("#Modal_Duplicate_Message").modal('show');
 							$('#id_Submit_Button').prop('disabled', false);
-							event.preventDefault();
 						}
 						else
 						{ 
