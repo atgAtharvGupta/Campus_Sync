@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 		<title>Attendance System</title>
 		{% load static %} {% include 'Resources/Head.html' %}
+
 		<style>
 			@media (max-width: 576px) {
 				li {
@@ -124,7 +125,7 @@
 												</div>
 											</div>
 											{% endif %}
-											<div class="tab-pane fade" id="view" role="tabpanel" aria-labelledby="view-tab">
+											<div class="tab-pane fade " id="view" role="tabpanel" aria-labelledby="view-tab">
 												<!-- View Attendance -->
 												<div style="padding: 20px">
 													<div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>View Attendance</span></div>
@@ -171,7 +172,7 @@
 												</div>
 											</div>
 											{% if perms.Resources.attendance_view_rights %}
-											<div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+											<div class="tab-pane fade " id="report" role="tabpanel" aria-labelledby="report-tab">
 												<!-- Report -->
 												<div style="padding: 20px">
 													<div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Generate Report</span></div>

@@ -33,7 +33,7 @@ def approve(request):
                 faculty.Verified = True
                 faculty.save()
 
-                messageStatus = SendMail(i, "Account Approval Request - SGSITS Attendance System", None, "Hello, your faculty account has been approved. You can login again at <a href='" + settings.PROJECT_WEBSITE_URL + "'>" + settings.PROJECT_WEBSITE_URL + "</a>")
+                # messageStatus = SendMail(i, "Account Approval Request - SGSITS Attendance System", None, "Hello, your faculty account has been approved. You can login again at <a href='" + settings.PROJECT_WEBSITE_URL + "'>" + settings.PROJECT_WEBSITE_URL + "</a>")
 
             return render(request, 'Faculty/Manage.html', {'Departments': Department.objects.all(), 'Search': SearchForm(), 'FacultyCSV': FacultyCSV(), 'Message': 'Approved Selected Faculties!', 'visiblity': 'visible', 'color': 'success', 'listFaculties': Faculty.objects.filter(Verified=False)})
 
@@ -44,7 +44,7 @@ def approve(request):
                 faculty.delete()
                 User.objects.get(email=i).delete()
 
-                messageStatus = SendMail(i, "Account Approval Request - SGSITS Attendance System", None, "Hello, your faculty account has been rejected by the admin. Visit college department for futher information.")
+                # messageStatus = SendMail(i, "Account Approval Request - SGSITS Attendance System", None, "Hello, your faculty account has been rejected by the admin. Visit college department for futher information.")
 
             return render(request, 'Faculty/Manage.html', {'Departments': Department.objects.all(), 'Search': SearchForm(), 'FacultyCSV': FacultyCSV(), 'Message': 'Rejected Selected Faculties!', 'visiblity': 'visible', 'color': 'success', 'listFaculties': Faculty.objects.filter(Verified=False)})
 

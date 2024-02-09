@@ -4,7 +4,20 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 		<title>Attendance System</title>
+
 		{% load static %} {% include 'Resources/Head.html' %}
+		<script type="text/javascript">  
+            function selects(){ 
+                var ele=document.getElementsByName('studentchecks[]');  
+                for(var i=0; i<ele.length; i++){  
+                    if(ele[i].type=='checkbox')  
+                        ele[i].checked=true;  
+                    } 
+			} 
+		</script>
+		
+
+
 	</head>
 
 	<body id="page-top">
@@ -77,7 +90,7 @@
 											<form id="AttendanceForm" method="POST" action="{% url 'Attendance:TakeSuccess' %}">
 												{% csrf_token %}
 												<div class="form-check" style="margin: 10px">
-													<input type="checkbox" class="form-check-input" id="select-all" />
+													<input type="checkbox" onclick='selects()' class="form-check-input" id="select-all" />
 													<label class="form-check-label text-dark" for="select-all">Select All</label>
 												</div>
 												{% for student in StudentList %}
@@ -115,7 +128,7 @@
 					</div>
 				</div>
 				<section>
-					<div class="modal fade" id="Modal_Duplicate_Message" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Modal_Duplicate_MessageLabel" aria-hidden="true">
+					<div class="modal fade " id="Modal_Duplicate_Message" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Modal_Duplicate_MessageLabel" aria-hidden="false">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -139,6 +152,7 @@
 		{% include 'Resources/Links.html' %}
 		<!-- Other JavaScript -->
 		<script src="{% static 'Resources/js/main.js' %}"></script>
+		
 		<script>
 			$(document).ready(function () {
 				//Event code end here
@@ -168,22 +182,18 @@
 
 			$("#AttendanceForm").submit(function( event ) {
 
-				$('#id_Submit_Button').prop('disabled', true);
-			
+				$('#id_Submit_Button').prop('disabled', true);			
 				var subjectID = $('#id_attendanceSubject').val();
 				var dateToday = "{% now 'Y-m-d' %}";
 				var lectureType = '';
 
-				if($('#Theory').is(":checked"))
-				{
-					var lectureType = 'Theory';
-				}
-				else
-				{
-					var lectureType = 'Lab';
-				}
+				    if($('#Theory').is(":checked")){
+					    var lectureType = 'Theory';
+				    }
+				    else{
+					    var lectureType = 'Lab';
+				    }
 
-				
 				$.ajax({
 					headers: { "X-CSRFToken": getCookie("csrftoken") },
 					url: "{% url 'Attendance:CheckMultiple' %}",
@@ -198,10 +208,10 @@
 							event.preventDefault();
 						}
 						else
-						{
+						{ 
 							allCheck = false;
 							$('#AttendanceForm').submit();
-						}
+						} 
 
 					},
 				});
