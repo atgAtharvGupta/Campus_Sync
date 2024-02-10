@@ -6,7 +6,7 @@
 		<title>Attendance System</title>
 
 		{% load static %} {% include 'Resources/Head.html' %}
-		<script type="text/javascript">  
+		{% comment %} <script type="text/javascript">  
             function selects(){ 
                 var ele=document.getElementsByName('studentchecks[]');  
                 for(var i=0; i<ele.length; i++){  
@@ -14,7 +14,7 @@
                         ele[i].checked=true;  
                     } 
 			} 
-		</script>
+		</script> {% endcomment %}
 		
 
 
@@ -205,6 +205,7 @@
 						if (response.hasOwnProperty("Error")) {
 							$("#Modal_Duplicate_Message").modal('show');
 							$('#id_Submit_Button').prop('disabled', false);
+							event.preventDefault();
 						}
 						else
 						{ 
