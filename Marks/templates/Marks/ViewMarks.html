@@ -23,15 +23,16 @@
     </div>
     <br/>
     <div style="text-align: center;">
+        {% for subject in SubjectList %}
         <table border="1" style="margin: 10px; width: 100%;">
             <thead>
                 <tr>
                     <th>S.No.</th>
                     <th>Name</th>
                     <th>Enrollment</th>
-                    {% for subject in SubjectList %}
+                    {% comment %} {% for subject in SubjectList %} {% endcomment %}
                     <th colspan="10">{{ subject.Name }}</th>
-                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
                 </tr>
             </thead>
             <tbody>
@@ -39,16 +40,16 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    {% for subject in SubjectList %}
+                    {% comment %} {% for subject in SubjectList %} {% endcomment %}
                     <td colspan="4"><strong>Classwork Marks</strong></td>
                     <td colspan="6"><strong>Sessional Work Marks</strong></td>
-                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    {% for subject in SubjectList %}
+                    {% comment %} {% for subject in SubjectList %} {% endcomment %}
                     <td>Mid Term 1 ({{ StudentMarksList.0.0.MidTerm1Total }} Marks)</td>
                     <td>Mid Term 2 ({{ StudentMarksList.0.0.MidTerm2Total }} Marks)</td>
                     <td>Attendance (10 Marks)</td>
@@ -59,22 +60,22 @@
                     <td>Quiz 2 ({{ StudentMarksList.0.0.Quiz2Total }} Marks)</td>
                     <td>Attendance (10 Marks)</td>
                     <td><strong>Total</strong></td>
-                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
                 </tr>
-                {% for rowColumns in StudentMarksList %}
+                {% for student in StudentMarksList %}
                 <tr>
                     <td>
                         <label>{{ forloop.counter }}</label>
                     </td>
                     <td>
-                        <label>{{ rowColumns.0.Name }}</label>
+                        <label>{{ student.0.Name }}</label>
                     </td>
                     <td>
-                        <label>{{ rowColumns.0.Enrollment }}</label>
+                        <label>{{ subject.0.Enrollment }}</label>
                     </td>
-                    {% for subjectColumn in rowColumns %}
+                    {% comment %} {% for subject in student %} {% endcomment %}
                     <td>
-                        <label>{{ subjectColumn.Mid1 }}</label>
+                        <label>{{ SubjectList.Mid1 }}</label>
                     </td>
                     <td>
                         <label>{{ subjectColumn.MidTerm2 }}</label>
@@ -103,7 +104,7 @@
                     <td>
                         <strong><label>{{ subjectColumn.SWTotal }}</label></strong>
                     </td>
-                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
                 </tr>
                 {% endfor %}
             </tbody>
@@ -112,12 +113,13 @@
                     <td><strong>S.No.</strong></td>
                     <td><strong>Name</strong></td>
                     <td><strong>Enrollment</strong></td>
-                    {% for subject in SubjectList %}
+                    {% comment %} {% for subject in SubjectList %} {% endcomment %}
                     <td colspan="10"><strong>{{ subject.Name }}</strong></td>
-                    {% endfor %}
+                    {% comment %} {% endfor %} {% endcomment %}
                 </tr>
             </tfoot>
         </table>
+        {% endfor %}
     </div>
     <div style="margin-top: 50px;">
         {% include 'Resources/Footer.html' %}
