@@ -113,7 +113,7 @@ def studentAdd(request):
                             branch = Branch.objects.get(Name = str(row[10]), Course_id = course)
                             semester = Semester.objects.get(Name = str(row[11]), Branch_id = branch)
 
-                            date_time_obj = datetime.datetime.strptime(str(row[4]), '%d/%m/%Y')
+                            date_time_obj = datetime.datetime.strptime(str(row[4]), '%d-%m-%Y')
 
                             Student(First = str(row[1]), Last = str(row[2]), Email = str(row[0]), Enrollment = str(row[3]), Contact = str(row[6]), DOB = date_time_obj.date(), Category = str(row[5]), Address = str(row[7]), Department_id = department, Course_id = course, Branch_id = branch, Semester_id = semester).save()
                             successList.append(str(row[1]) + " " + str(row[2]) + " - " + str(row[3]) + " - " + str(row[0]))

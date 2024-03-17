@@ -25,7 +25,7 @@ SECRET_KEY = 'm*1%-d0!q#zwltd$s!wlg+^j)563_a^nq%1miq5d))h2n$so^)'
 DEBUG = True
 
 PROJECT_WEBSITE_URL = "https://major-project-vikash.herokuapp.com"
-DEFAULT_FROM_EMAIL = "dataitdepartment@gmail.com"
+DEFAULT_FROM_EMAIL = "sgsitsitmis@gmail.com"
 
 mimetypes.add_type("text/javascript", ".js", True)
 mimetypes.add_type("text/css", ".css", True)
@@ -184,7 +184,7 @@ MESSAGE_TAGS = {
 
 EMAIL_HOST='smtp.sendgrid.net'
 EMAIL_HOST_USER='apikey'
-EMAIL_HOST_PASSWORD= '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'
+EMAIL_HOST_PASSWORD= 'aayushsolanki@sgsitsindore'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True
-EMAIL_BACKEND='django.core.mail.backendssmtp.EmailBackend'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
