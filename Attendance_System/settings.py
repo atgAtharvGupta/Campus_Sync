@@ -25,7 +25,7 @@ SECRET_KEY = 'm*1%-d0!q#zwltd$s!wlg+^j)563_a^nq%1miq5d))h2n$so^)'
 DEBUG = True
 
 PROJECT_WEBSITE_URL = "https://major-project-vikash.herokuapp.com"
-DEFAULT_FROM_EMAIL = "dataitdepartment@gmail.com"
+DEFAULT_FROM_EMAIL = "sgsitsitmis@gmail.com"
 
 mimetypes.add_type("text/javascript", ".js", True)
 mimetypes.add_type("text/css", ".css", True)
@@ -112,8 +112,8 @@ SOCIAL_AUTH_PIPELINE = (
 SOCIAL_AUTH_STRATEGY = 'social_django.strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social_django.models.DjangoStorage'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '304426757031-bim8phevj3pqoc91bd1pvkbrigpaqfsr.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '940446057145-c083r2e6ea0cm8q8h6mg6tsn76nqiiae.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '119118333380-huvpiq3pgvhbtaomsc9r55231q0ac8gv.apps.googleusercontent.com'
 # SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
@@ -184,7 +184,7 @@ MESSAGE_TAGS = {
 
 EMAIL_HOST='smtp.sendgrid.net'
 EMAIL_HOST_USER='apikey'
-EMAIL_HOST_PASSWORD= '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'
+EMAIL_HOST_PASSWORD= 'aayushsolanki@sgsitsindore'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True
-EMAIL_BACKEND='django.core.mail.backendssmtp.EmailBackend'
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'

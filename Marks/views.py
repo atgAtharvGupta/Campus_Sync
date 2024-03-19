@@ -308,7 +308,10 @@ def viewMarks(request):
 
     studentListInstance = Student.objects.filter(Semester_id = semesterInstance)
 
-    subjectInstance = Subject.objects.filter(Semester_id = semesterInstance)
+    # subjectInstance = Subject.objects.filter(Semester_id = semesterInstance)
+
+    subjectInstance = Subject.objects.filter(id = request.POST.get('subject4', 0))
+
 
     branchInstance = Branch.objects.get(id = semesterInstance.Branch_id.id)
 

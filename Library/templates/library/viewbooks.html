@@ -89,7 +89,7 @@
 						{% for message in messages %}
 						{% if message.tags %}
 						<div class="alert alert-{{ message.tags }} alert-dismissible">
-							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<a href="#" class="close" data-bs-dismiss="alert" aria-label="close">&times;</a>
 							<span class="{{ message.tags }} font-weight-bold">{{ message }}</span>
 							<br>
 							<a type="button" class="btn btn-{{ message.tags }} btn-sm mt-1" href="{% url 'Library:ViewBooks' %}">view books</a>
@@ -105,11 +105,11 @@
 							<div class="col-md-10">
 								<h5 class="font-weight-bold mb-4">View all books <a class="btn btn-info btn-sm" href="{% url 'Library:ViewBooks' %}">CLICK HERE</a></h5>
 							</div>
-							<div class="col-md-2">
+							{% comment %} <div class="col-md-2">
 								<div class="text-dark font-weight-bold h5 mb-0 ">
 									<span><a class="btn btn-danger" href="{% url 'Library:GenerateAllBooksReportView' %}">Generate Report </a></span>
 								</div>
-							</div>
+							</div> {% endcomment %}
 						</div>
 
             <div class="row">

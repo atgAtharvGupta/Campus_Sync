@@ -23,18 +23,18 @@
     </div>
     <br/>
     <div style="text-align: center;">
-        <table border="1" style="margin: 10px; width: 100%;">
+        <table border="1" style="margin: 8px; width: 97%;">
             <thead>
                 <tr>
                     <th>S.No.</th>
                     <th>Name</th>
                     <th>Enrollment</th>
                     {% for subject in SubjectList %}
-                    <th colspan="10">{{ subject.Name }}</th>
+                    <th colspan="12">{{ subject.Name }}</th>
                     {% endfor %}
+                
                 </tr>
-            </thead>
-            <tbody>
+
                 <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -61,6 +61,34 @@
                     <td><strong>Total</strong></td>
                     {% endfor %}
                 </tr>
+            </thead>
+            <tbody>
+                {% comment %} <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    {% for subject in SubjectList %}
+                    <td colspan="4"><strong>Classwork Marks</strong></td>
+                    <td colspan="6"><strong>Sessional Work Marks</strong></td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    {% for subject in SubjectList %}
+                    <td>Mid Term 1 ({{ StudentMarksList.0.0.MidTerm1Total }} Marks)</td>
+                    <td>Mid Term 2 ({{ StudentMarksList.0.0.MidTerm2Total }} Marks)</td>
+                    <td>Attendance (10 Marks)</td>
+                    <td><strong>Total</strong></td>
+                    <td>Viva 1 ({{ StudentMarksList.0.0.Viva1Total }} Marks)</td>
+                    <td>Viva 2 ({{ StudentMarksList.0.0.Viva2Total }} Marks)</td>
+                    <td>Quiz 1 ({{ StudentMarksList.0.0.Quiz1Total }} Marks)</td>
+                    <td>Quiz 2 ({{ StudentMarksList.0.0.Quiz2Total }} Marks)</td>
+                    <td>Attendance (10 Marks)</td>
+                    <td><strong>Total</strong></td>
+                    {% endfor %} {% endcomment %}
+                </tr>
                 {% for rowColumns in StudentMarksList %}
                 <tr>
                     <td>
@@ -74,40 +102,42 @@
                     </td>
                     {% for subjectColumn in rowColumns %}
                     <td>
-                        <label>{{ subjectColumn.Mid1 }}</label>
+                        <label>{{ rowColumns.0.Mid1 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.MidTerm2 }}</label>
+                        <label>{{ rowColumns.0.MidTerm2 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Attendance }}</label>
+                        <label>{{ rowColumns.0.Attendance }}</label>
                     </td>
                     <td>
-                        <strong><label>{{ subjectColumn.CWTotal }}</label></strong>
+                        <strong><label>{{ rowColumns.0.CWTotal }}</label></strong>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Viva1 }}</label>
+                        <label>{{ rowColumns.0.Viva1 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Viva2 }}</label>
+                        <label>{{ rowColumns.0.Viva2 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Quiz1 }}</label>
+                        <label>{{ rowColumns.0.Quiz1 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Quiz2 }}</label>
+                        <label>{{ rowColumns.0.Quiz2 }}</label>
                     </td>
                     <td>
-                        <label>{{ subjectColumn.Attendance }}<label>
+                        <label>{{ rowColumns.0.Attendance }}<label>
                     </td>
                     <td>
-                        <strong><label>{{ subjectColumn.SWTotal }}</label></strong>
+                        <strong><label>{{ rowColumns.0.SWTotal }}</label></strong>
                     </td>
                     {% endfor %}
                 </tr>
                 {% endfor %}
             </tbody>
-            <tfoot>
+
+
+             {% comment %} <tfoot>
                 <tr>
                     <td><strong>S.No.</strong></td>
                     <td><strong>Name</strong></td>
@@ -116,7 +146,7 @@
                     <td colspan="10"><strong>{{ subject.Name }}</strong></td>
                     {% endfor %}
                 </tr>
-            </tfoot>
+            </tfoot>  {% endcomment %}
         </table>
     </div>
     <div style="margin-top: 50px;">

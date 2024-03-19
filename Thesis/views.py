@@ -125,6 +125,7 @@ def AddThesis(request):
             ext = os.path.splitext(files.name)[1]  # [0] returns path+filename
             valid_extensions = ['.pdf']
             if ext.lower() in valid_extensions:
+                print("iiiiiiiiiiiiiiiiiii")
                 Thesis(Thesis_Name=Tname,Description=Des,Area=area,Technology_used=tech,Student_Name=Sname,Enrollment=Enroll,DOS=Date,Pdf=files).save()
                 return render(request, 'Thesis/Manage.html', {'MessageExtension': 'Thesis added ', 'visiblity': 'visible', 'color': 'success', 'AddForm': AddForm()})
             else:

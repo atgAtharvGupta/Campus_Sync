@@ -42,7 +42,7 @@ def manage(request):
 def viewAttendance(request):
 
     if request.method == 'POST':
-        
+        print("method called")
         subjectInstance = Subject.objects.get(id = request.POST.get('subjectselect', 0))
 
         studentList = Student.objects.filter(Semester_id = subjectInstance.Semester_id.id)
@@ -130,6 +130,7 @@ def takeSuccess(request):
     if request.method == 'POST':
 
         studentList = request.POST.getlist('studentchecks[]')
+        # print(studentList)
 
         subjectID = request.POST.get('attendanceSubject', 0)
 
@@ -224,32 +225,36 @@ def multiple(request):
 
 @permission_required('Resources.attendance_rights')
 def checkMultiple(request):
-    
+
     data = {'Success': ''}
 
     if request.method == 'POST':
-
+       
         subjectInstance = Subject.objects.get(id = request.POST.get('currentSubject', 0))
 
         attendanceDate =  datetime.datetime.strptime(str(request.POST.get('currentDate', '1970-01-01')), '%Y-%m-%d')
 
-        lectureType = request.POST.get('currentLecture', '')
+        lectureType = request.POST.get('currentLecture','')
 
         if lectureType == 'Theory':
             if Attendence.objects.filter(Subject_id = subjectInstance, Timestamp = attendanceDate, Theory_Lectures = True).count() > 0:
                 data = {'Error': ''}
+
         else:
             if Attendence.objects.filter(Subject_id = subjectInstance, Timestamp = attendanceDate, Lab_Lectures = True).count() > 0:
                 data = {'Error': ''}
-
+                
     return JsonResponse(data)
 
 
 
 @permission_required('Resources.attendance_view_rights')
 def generateReport(request):
+    
 
     if request.method == 'POST':
+        
+
 
         semesterInstance = Semester.objects.get(id = request.POST.get('semester2', 0))
 
