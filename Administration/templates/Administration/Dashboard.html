@@ -38,9 +38,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Furniture:index' %}"><i class="fas fa-table"></i><span>Furniture</span></a>
 						</li>
-						<li class="nav-item">
+						{% comment %} <li class="nav-item">
 							<a class="nav-link" href="{% url 'Library:Manage' %}"><i class="fas fa-book-reader"></i><span>Library</span></a>
-						</li>
+						</li> {% endcomment %}
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Thesis:Manage' %}"><i class="fas fa-file-alt"></i><span>Thesis</span></a>
 						</li>
@@ -166,7 +166,7 @@
 							{% endif %}
 							<!-- Library management -->
 
-
+{% comment %} 
 							<div class="col-md-6 col-xl-3 mb-4">
 								<div class="card shadow border-left-primary py-2">
 									<div class="card-body">
@@ -181,7 +181,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> {% endcomment %}
 
 
 							<div class="col-md-6 col-xl-3 mb-4">
