@@ -70,7 +70,7 @@
 								<div class="row">
 									<div class="col-md-6 text-nowrap">
 										<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
-											<!--<label>
+											{% comment %} <label>
                                             Show
                                             <select class="form-control form-control-sm custom-select custom-select-sm">
                                                 <option value="10" selected>10</option>
@@ -78,15 +78,15 @@
                                                 <option value="50">50</option>
                                                 <option value="100">100</option>
                                             </select>
-                                        </label>-->
+                                        </label> {% endcomment %}
 											<label>Total Students: {{ total }}</label>
 											<br/>
 											<label>Present: {{ presentcount }}</label>
 											<br/>
 											<label>Absent: {{ absentcount }}</label>
 											<br/>
-											 if
-											<label>Absent: {{ absentcount }}</label>
+											 {% comment %} if
+											<label>Absent: {{ absentcount }}</label> {% endcomment %}
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -124,14 +124,14 @@
 													{% endif %}
 
 													{% if student.Attendance == "Present" %}
-														<td><button type="button" id="id_button_absent_{{ student.id }}" class="btn btn-primary" onclick="markAbsent({{ subjectInstance.id }}, {{ student.id }}, '{{ Date }}', '{{ AttType }}', '#id_button_absent_{{ student.id }}');">Mark Absent</button></td>
+														<td><button type="button" id="id_button_absent_{{ student.id }}" class="btn btn-primary" onclick="markAbsent({{ subjectInstance.id }}, {{ student.id }}, '{{ Date }}', '{{ student.LectureType }}', '#id_button_absent_{{ student.id }}');">Mark Absent</button></td>
 													{% else %}
-														<td><button type="button" id="id_button_present_{{ student.id }}" class="btn btn-danger" onclick="markPresent({{ subjectInstance.id }}, {{ student.id }}, '{{ Date }}', '{{ AttType }}', '#id_button_present_{{ student.id }}');">Mark Present</button></td>
+														<td><button type="button" id="id_button_present_{{ student.id }}" class="btn btn-danger" onclick="markPresent({{ subjectInstance.id }}, {{ student.id }}, '{{ Date }}', '{{ student.LectureType }}', '#id_button_present_{{ student.id }}');">Mark Present</button></td>
 													{% endif %}
 												</tr>
 												{% endfor %}
 											</tbody>
-											<tfoot>
+											{% comment %} <tfoot>
 												<tr>
 													<td><strong>Full Name</strong></td>
 													<td><strong>Enrollment Number</strong></td>
@@ -139,7 +139,7 @@
 													<td><strong>Attendance</strong></td>
 													<td><strong>Modify</strong></td>
 												</tr>
-											</tfoot>
+											</tfoot> {% endcomment %}
 										</table>
 									</div>
 									<div class="row">
@@ -161,13 +161,13 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="Modal_Success_MessageLabel">Attendance Updated</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
                             </div>
                             <div class="modal-body"><i class="fa fa-check text-success"></i>&nbsp;Attendance Updated Successfully.</div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Okay</button>
                             </div>
                         </div>
                     </div>
@@ -177,13 +177,13 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="Modal_Error_MessageLabel">Error Occurred</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
                             </div>
                             <div class="modal-body"><i class="fa fa-times text-danger"></i>&nbsp;Internal Server Error, attendance not updated.</div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Okay</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Okay</button>
                             </div>
                         </div>
                     </div>
@@ -228,13 +228,13 @@
 						success: function (response) {
 
 							if (response.hasOwnProperty("Success")) {
-								$("#Modal_Success_Message").modal();
+								$("#Modal_Success_Message").modal("show");
 								$(buttonID).html('Updated');
 								$(buttonID).prop("disabled", true);
 							}
 							else
 							{
-								$("#Modal_Error_Message").modal();
+								$("#Modal_Error_Message").modal("show");
 							}
 
 						},
@@ -260,13 +260,13 @@
 						success: function (response) {
 
 							if (response.hasOwnProperty("Success")) {
-								$("#Modal_Success_Message").modal();
+								$("#Modal_Success_Message").modal("show");
 								$(buttonID).html('Updated');
 								$(buttonID).prop("disabled", true);
 							}
 							else
 							{
-								$("#Modal_Error_Message").modal();
+								$("#Modal_Error_Message").modal("show");
 							}
 
 						},

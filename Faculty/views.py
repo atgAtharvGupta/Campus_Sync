@@ -98,7 +98,7 @@ def search(request):
                 users_list = Faculty.objects.filter(Contact=searchForm.cleaned_data['Contact'])
 
             elif searchForm.cleaned_data['FacultyCollegeID'] != '':
-                users_list = Faculty.objects.filter(Enrollment=searchForm.cleaned_data['FacultyCollegeID'])
+                users_list = Faculty.objects.filter(FacultyCollegeID=searchForm.cleaned_data['FacultyCollegeID'])
             else:
                 return render(request, 'Faculty/Manage.html', {'Departments': Department.objects.all(), 'Search': SearchForm()})
                 

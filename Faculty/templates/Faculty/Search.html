@@ -85,7 +85,7 @@
 									<div class="col-md-6">
 										<div class="text-md-right dataTables_filter" id="dataTable_filter">
 											<label>
-												<!--<input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" />-->
+												<input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" />
 											</label>
 										</div>
 									</div>
@@ -94,12 +94,12 @@
 									<table class="table my-0" id="dataTable">
 										<thead>
 											<tr>
-												<th>Full Name</th>
+												<th>Name</th>
 												<th>Employee ID</th>
                                                 <th>Post</th>
 												<th>Qualifications</th>
 												<th>Joining Date</th>
-                                                <th>Email Address</th>
+                                                <th>Email </th>
                                                 <th>Contact</th>
 												<th>Date Of Birth</th>
 												<th>Address</th>
@@ -120,7 +120,7 @@
 											</tr>
 											{% endfor %}
 										</tbody>
-										<tfoot>
+										{% comment %} <tfoot>
 											<tr>
 												<td><strong>Full Name</strong></td>
                                                 <td><strong>Employee ID</strong></td>
@@ -132,7 +132,7 @@
 												<td><strong>Date Of Birth</strong></td>
 												<td><strong>Address</strong></td>
 											</tr>
-										</tfoot>
+										</tfoot> {% endcomment %}
 									</table>
 								</div>
 								<div class="row">

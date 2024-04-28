@@ -2,11 +2,22 @@
 
 from django import forms
 from django.forms import models
+from django.core.validators import RegexValidator
+
 
 
 CATEGORY_CHOICES = (("General","General"),("OBC","OBC"),("SC","SC"),("ST","ST"),)
 POST_CHOICES = (("Professor","Professor"),("Assistant Professor","Assistant Professor"),("Lab Technician","Lab Technician"),("Associate Professor","Associate Professor"),)
 
+indian_number_validator = RegexValidator(
+    regex=r'^[6-9]\d{9}$',
+    message="Enter a valid Indian phone number."
+)
+
+username_validator = RegexValidator(
+    regex=r'^[a-zA-Z]*$',
+    message="Name must contain only characters.",
+)
 
 class SendGridAPIForm(forms.Form):
 
@@ -35,10 +46,11 @@ class PermissionForm(forms.Form):
 
 class StudentSetup(forms.Form):
 
-    First = forms.CharField(required=True, label="First Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
-    Last = forms.CharField(required=True, label="Last Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
+    First = forms.CharField(required=True, label="First Name", max_length=150, validators=[username_validator], widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
+    Last = forms.CharField(required=True, label="Last Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
     Enrollment = forms.CharField(required=True, label="Enrollment Number", max_length=64, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Enrollment', 'onBlur': "CheckEnroll();"}))
-    Contact = forms.CharField(required=True, label="Contact (10 Digits)", max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
+    Contact = forms.CharField(required=True, label="Contact (10 Digits)", max_length=10,validators=[indian_number_validator]
+,widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
     Category = forms.ChoiceField(required=True, label="Category", choices=CATEGORY_CHOICES,widget=forms.Select({'class': 'form-control'}))
     Photo = forms.FileField(required=True, label="Student Photo (jpg - 2 MB)", widget=forms.FileInput({'class': 'form-control', 'accept': 'image/jpg'}))
     DOB = forms.DateField(required=True, label="Date of Birth", widget=forms.DateInput({'class': 'form-control', 'type': 'date', 'min': '1950-01-01', 'max':'2010-12-31'}))
@@ -46,10 +58,10 @@ class StudentSetup(forms.Form):
 
 class FacultySetup(forms.Form):
 
-    First = forms.CharField(required=True, label="First Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
-    Last = forms.CharField(required=True, label="Last Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
+    First = forms.CharField(required=True, label="First Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
+    Last = forms.CharField(required=True, label="Last Name", max_length=150, validators=[username_validator], widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
     EmployeeID = forms.CharField(required=True, label="Employee ID", max_length=64, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Employee ID', 'onBlur': "CheckEmployee();"}))
-    Contact = forms.CharField(required=True, label="Contact (10 Digits)", max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
+    Contact = forms.CharField(required=True, label="Contact (10 Digits)", max_length=10, validators=[indian_number_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
     Post = forms.ChoiceField(required=True, label="Post", choices=POST_CHOICES, widget=forms.Select({'class': 'form-control'}))
     Qualification = forms.CharField(required=True, label="Qualifications", max_length=1024, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Qualifications'}))
     Joining = forms.DateField(required=True, label="Date of Joining", widget=forms.DateInput({'class': 'form-control', 'type': 'date', 'min': '1950-01-01', 'max':'2021-12-31'}))
@@ -59,9 +71,9 @@ class FacultySetup(forms.Form):
 
 class StudentUpdate(forms.Form):
 
-    First = forms.CharField(required=False, label="First Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
-    Last = forms.CharField(required=False, label="Last Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
-    Contact = forms.CharField(required=False, label="Contact (10 Digits)", max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
+    First = forms.CharField(required=False, label="First Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
+    Last = forms.CharField(required=False, label="Last Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
+    Contact = forms.CharField(required=False, label="Contact (10 Digits)", validators=[indian_number_validator],max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
     Category = forms.ChoiceField(required=False, label="Category", choices=CATEGORY_CHOICES,widget=forms.Select({'class': 'form-control'}))
     Photo = forms.FileField(required=False, label="Student Photo (jpg - 2 MB)", widget=forms.FileInput({'class': 'form-control', 'accept': 'image/jpg'}))
     DOB = forms.DateField(required=False, label="Date of Birth", widget=forms.DateInput({'class': 'form-control', 'type': 'date', 'min': '1950-01-01', 'max':'2010-12-31'}))
@@ -69,9 +81,9 @@ class StudentUpdate(forms.Form):
 
 class FacultyUpdate(forms.Form):
 
-    First = forms.CharField(required=False, label="First Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
-    Last = forms.CharField(required=False, label="Last Name", max_length=150, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
-    Contact = forms.CharField(required=False, label="Contact (10 Digits)", max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
+    First = forms.CharField(required=False, label="First Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'First Name'}))
+    Last = forms.CharField(required=False, label="Last Name", max_length=150,  validators=[username_validator],widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Last Name'}))
+    Contact = forms.CharField(required=False, label="Contact (10 Digits)", validators=[indian_number_validator],max_length=10, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Phone Number'}))
     Post = forms.ChoiceField(required=True, label="Post", choices=POST_CHOICES, widget=forms.Select({'class': 'form-control'}))
     Qualification = forms.CharField(required=False, label="Qualifications", max_length=1024, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Qualifications'}))
     Joining = forms.DateField(required=False, label="Date of Joining", widget=forms.DateInput({'class': 'form-control', 'type': 'date', 'min': '1950-01-01', 'max':'2021-12-31'}))

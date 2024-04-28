@@ -160,7 +160,7 @@ def takeSuccess(request):
                     else:
                         Attendence(Student_id=Student.objects.get(Email = student.Email), Subject_id=Subject.objects.get(id = subjectID), Theory_Lectures = True, Timestamp = attendanceDate).save()
 
-                else:
+                elif attendanceType == 'Lab Lecture':
                     a = Attendence.objects.filter(Student_id=Student.objects.get(Email = student.Email), Subject_id=Subject.objects.get(id = subjectID), Timestamp = attendanceDate)
                     if a.count() > 0:
                         cs = a.first()
@@ -339,7 +339,7 @@ def generateReport(request):
 
 @permission_required('Resources.attendance_rights')
 def updateAttendance(request):
-
+    print("entered updateAttendance")
     data = {'Error': ''}
     
     if request.method == 'POST':
@@ -347,6 +347,7 @@ def updateAttendance(request):
         currentStudent = request.POST.get('currentStudent', 0)
         currentDate = datetime.datetime.strptime(str(request.POST.get('currentDate', '1970-01-01')), '%Y-%m-%d')
         currentLecture = request.POST.get('currentLecture', '')
+        print(currentLecture)
         operationType = request.POST.get('operationType', '')
 
         subjectInstance = Subject.objects.get(id = currentSubject)
@@ -357,19 +358,19 @@ def updateAttendance(request):
             a = Attendence.objects.get(Student_id = studentInstance, Subject_id = subjectInstance, Timestamp = currentDate)
             
             if currentLecture == 'Theory':
-
+                print("entered therory")
                 if operationType == 'Present':
                     a.Theory_Lectures = True
                 else:
                     a.Theory_Lectures = False
 
-            else:
-                
+            else :
+                print("enterd LAb")
                 if operationType == 'Present':
                     a.Lab_Lectures = True
-                else:
+                elif operationType == 'Absent':
                     a.Lab_Lectures = False
-
+             
             a.save()
 
             data = {'Success': ''}

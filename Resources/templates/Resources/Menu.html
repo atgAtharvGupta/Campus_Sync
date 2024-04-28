@@ -1,10 +1,11 @@
 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-     <div class="container-fluid"> {% comment %}<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect" id="sidebarToggleTop" type="button"><i class="material-icons pmd-sm md-light"></i></button> {% endcomment %}
+     <div class="container-fluid"> <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect" id="sideb`arToggleTop" type="button"><i class="material-icons pmd-sm md-light"></i></button>
+    
         <p style="font-size: 20px;">Attendance System</p>
         <ul class="nav navbar-nav flex-nowrap ml-auto">
             <li class="nav-item dropdown no-arrow">
                 {% if user.is_authenticated %}
-                <div class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ user.get_full_name }} ({{ user.email }})</span>&nbsp;<i class="fa-solid fa-user"  ></i></a>
+                <div class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ user.get_full_name }} ({{ user.email }})</span>&nbsp;<i class="fas fa-user"  ></i></a>
                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
                         <a class="dropdown-item" href="{% url 'Administration:Profile' %}"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Account Settings</a>
                         <div class="dropdown-divider"></div>
