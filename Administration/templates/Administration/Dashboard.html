@@ -27,6 +27,14 @@
 							<a class="nav-link" href="{% url 'Marks:Manage' %}"><i class="fas fa-trophy"></i><span>Marks Distribution</span></a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Library:Manage' %}"><i class="fas fa-book-reader"></i><span>Library</span></a>
+						</li> 
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'Thesis:Manage' %}"><i class="fas fa-file-alt"></i><span>Thesis</span></a>
+						</li>
+						{% if perms.Resources.email_rights %}
+
+						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Mails:Compose' %}"><i class="fas fa-envelope"></i><span>Send Emails</span></a>
 						</li>
 						<li class="nav-item">
@@ -38,18 +46,14 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Furniture:index' %}"><i class="fas fa-table"></i><span>Furniture</span></a>
 						</li>
-						{% comment %} <li class="nav-item">
-							<a class="nav-link" href="{% url 'Library:Manage' %}"><i class="fas fa-book-reader"></i><span>Library</span></a>
-						</li> {% endcomment %}
-						<li class="nav-item">
-							<a class="nav-link" href="{% url 'Thesis:Manage' %}"><i class="fas fa-file-alt"></i><span>Thesis</span></a>
-						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Students:Manage' %}"><i class="fas fa-users"></i><span>Students</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Faculty:Manage' %}"><i class="fas fa-user-friends"></i><span>Faculties</span></a>
 						</li>
+						{% endif %}
+
 						<li class="nav-item">
 							<a class="nav-link" href="{% url 'Administration:Profile' %}"><i class="fas fa-cog"></i><span>Account Settings</span></a>
 						</li>

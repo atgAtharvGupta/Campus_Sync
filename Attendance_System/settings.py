@@ -114,8 +114,6 @@ SOCIAL_AUTH_STORAGE = 'social_django.models.DjangoStorage'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '940446057145-c083r2e6ea0cm8q8h6mg6tsn76nqiiae.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '119118333380-huvpiq3pgvhbtaomsc9r55231q0ac8gv.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 

@@ -6,7 +6,7 @@ class AddForm(forms.Form):
     # Department = forms.CharField(required=False, max_length=128, error_messages={
     #     'required': 'Please write your old password'}, widget=forms.Select(choices=Department,attrs={ 'rows': 2} ))
     Thesis_Name = forms.CharField(required=True, max_length=128,  widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Thesis Name'}))
-    Description= forms.CharField(required=True, max_length=500, widget=forms.Textarea({'class': 'form-control', 'placeholder': 'Description'}))
+    Description= forms.CharField(required=True, max_length=1500, widget=forms.Textarea({'class': 'form-control', 'placeholder': 'Description'}))
     Area=forms.CharField(required=True, max_length=128, label="Area/Field", widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Area/Field'}))
     Technology_used = forms.CharField(required=True, max_length=128,  widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Technology used'}))
     Student_Name = forms.CharField(required=True, widget=forms.TextInput({'class': 'form-control', 'placeholder': 'Student Name'}))
