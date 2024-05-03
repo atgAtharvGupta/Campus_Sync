@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'm*1%-d0!q#zwltd$s!wlg+^j)563_a^nq%1miq5d))h2n$so^)'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 PROJECT_WEBSITE_URL = "https://major-project-vikash.herokuapp.com"
 DEFAULT_FROM_EMAIL = "sgsitsitmis@gmail.com"
