@@ -1,0 +1,47 @@
+1.Ensure Python is installed, Use any IDE, Open your project directory and do the following steps.
+
+2.Virtualenv: It's recommended to use a virtual environment to manage your project's dependencies. You can install virtualenv if you don't have it already:
+     pip install virtualenv
+
+( restart your computer before proceeding to next step )
+
+
+3.Create a Virtual Environment:Navigate to your project directory and create a virtual environment:
+     cd <your-project-directory>
+     virtualenv venv
+
+
+4.Activate the Virtual Environment:
+     On Windows:      venv\Scripts\activate
+     On macOS/Linux:  source venv/bin/activate
+
+
+5.Install the required packages listed in requirements.txt:
+      pip install -r requirements.txt
+
+
+6.Apply the database migrations to set up your database schema:
+      python manage.py migrate
+
+
+7.Create a superuser to access the Django admin panel:
+      python manage.py createsuperuser
+
+
+8.Start the Django development server:
+       python manage.py runserver
+
+
+9.Open your web browser and navigate to http://127.0.0.1:8000/ to access your Django project.
+
+
+10.Accessing the Django Project on Other Devices via Local Network (Wi-Fi):
+        Start the Django development server, binding it to your local IP address and port 8000 (or any port you prefer).
+
+        get your ip using the command "ipconfig" (here my IP is 192.168.1.100) then run the following command
+
+        python manage.py runserver 192.168.1.100:8000
+
+
+11.Deactivate the Virtual Environment:When you're done working on your project, you can deactivate the virtual environment by simply running:
+     deactivate
