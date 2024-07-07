@@ -157,31 +157,32 @@ def issuebook_view(request, pk):
     book = models.Book.objects.get(id=pk)
     context = {
         'book': book,
-        'student' : ''
+        'student': ''
     }
 
     if request.method == "POST":
         query_name = request.POST.get('name', None)
         query_studentname = request.POST.get('studentname', None)
-        
+
         if query_name:
-            student=ResourcesModels.Student.objects.filter(Enrollment__contains=query_name)
+            student = ResourcesModels.Student.objects.filter(Enrollment__contains=query_name)
             if student:
                 context['student'] = student[0]
-            else: 
-                context['student'] = 'not found'
-            
-            if(student.exists()):
-                request.session['studentdata'] = student[0].Enrollment
             else:
-                messages.error(request, 'No Student Found. Firstly Add Student. Or Enter Correct Enrollment.')
-                return HttpResponseRedirect(request.path_info)
-        
-        else:
-            obj=models.IssuedBook()
+                context['student'] = 'not found'
 
-            obj.enrollment=request.session['studentdata']
-            obj.isbn=book.isbn
+        if student.exists():
+            # Check if student has already issued the maximum number of books
+            issued_books_count = models.IssuedBook.objects.filter(enrollment=student[0].Enrollment).count()
+            if issued_books_count >= 2:
+                messages.warning(request, 'You have already issued the maximum number of books (2).')
+                return HttpResponseRedirect(request.path_info)
+
+            request.session['studentdata'] = student[0].Enrollment
+            obj = models.IssuedBook()
+            obj.enrollment = request.session['studentdata']
+            obj.isbn = book.isbn
+
             # Quantity Update
             quantityUpdate = models.Book.objects.get(isbn=book.isbn)
             quantityUpdate.quantity -= 1
@@ -190,9 +191,13 @@ def issuebook_view(request, pk):
             obj.save()
             messages.info(request, 'Success! Book Issued Successfully.')
             return HttpResponseRedirect(request.path_info)
-            # return render(request,'library/bookissued.html')
 
-    return render(request,'library/issuebook.html', context)
+        else:
+            messages.error(request, 'No Student Found. Firstly Add Student. Or Enter Correct Enrollment.')
+            return HttpResponseRedirect(request.path_info)
+
+    return render(request, 'library/issuebook.html', context)
+
 
 
 @login_required
