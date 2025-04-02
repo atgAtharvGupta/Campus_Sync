@@ -103,6 +103,7 @@ class Student(models.Model):
     Course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     Branch_id = models.ForeignKey(Branch, on_delete=models.DO_NOTHING)
     Semester_id = models.ForeignKey(Semester, on_delete=models.DO_NOTHING)
+    Password = models.CharField(max_length=128, default="abc123")
 
     def __str__(self):
 
@@ -154,6 +155,7 @@ class Faculty(models.Model):
     DOB = models.DateField()
     JoiningDate = models.DateField()
     Verified = models.BooleanField(default=False)
+    Password = models.CharField(max_length=128, default="mnb098")
 
     def __str__(self):
 

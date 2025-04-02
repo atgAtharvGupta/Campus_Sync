@@ -1,5 +1,3 @@
-
-
 from django.http import response, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import permission_required, login_required
@@ -49,32 +47,41 @@ def initialFaculty(userEmail):
 
 @login_required()
 def dashboard(request):
-
+    context = {}
+    
     if Faculty.objects.filter(Email=request.user.email).count() > 0:
-        if Faculty.objects.filter(Email=request.user.email).first().Verified == False:
-            return redirect(reverse('Administration:Verification'))
-        else:
+        faculty = Faculty.objects.filter(Email=request.user.email).first()
+        context = {
+            'user_type': 'faculty',
+            'faculty': faculty,
+            'show_attendance': True  # Explicitly set to show attendance options
+        }
+        
+        # Grant attendance permissions if needed
+        user = request.user
+        try:
+            attendance_permission = Permission.objects.get(codename='attendance_rights')
+            view_attendance_permission = Permission.objects.get(codename='attendance_view_rights')
             
-            u = User.objects.get(email = request.user.email)
-            try:
-                permission = Permission.objects.get(name='Manage Attendance')
-                u.user_permissions.add(permission)
-            except:
-                pass
-            try:
-                permission = Permission.objects.get(name='Manage Marks')
-                u.user_permissions.add(permission)
-            except:
-                pass
-
-            return render(request, 'Administration/Dashboard.html', {})
-
+            if not user.has_perm('Resources.attendance_rights'):
+                user.user_permissions.add(attendance_permission)
+            
+            if not user.has_perm('Resources.attendance_view_rights'):
+                user.user_permissions.add(view_attendance_permission)
+                
+            user.save()
+        except Permission.DoesNotExist:
+            pass  # Permissions don't exist
+            
+        return render(request, 'Administration/Dashboard.html', context)
+    
+    # Rest of function for other user types...
     elif Student.objects.filter(Email=request.user.email).count() > 0:
+        # Student-specific logic
         return render(request, 'Administration/Dashboard.html', {})
-
     elif User.objects.get(username=request.user.username).is_superuser == 1:
+        # Admin-specific logic
         return render(request, 'Administration/Dashboard.html', {})
-
     else:
         return redirect(reverse('Administration:Setup'))
 
@@ -257,77 +264,33 @@ def verification(request):
 
 @login_required
 def setup(request):
-
-    u = User.objects.get(username=request.user.username)
     studentForm = StudentSetup()
     facultyForm = FacultySetup()
 
     if request.method == 'POST':
-
         checkFaculty = request.POST.get('isFaculty', '')
         checkStudent = request.POST.get('isStudent', '')
 
         if checkFaculty == 'True':
-
-            updateInfo = User.objects.filter(username=request.user.username)
-
             facultyForm = FacultySetup(request.POST, request.FILES)
-
             if facultyForm.is_valid():
-                updateInfo.update(first_name=facultyForm.cleaned_data['First'], last_name=facultyForm.cleaned_data['Last'])
-
-                if not Faculty.objects.filter(Email=request.user.email).count() > 0 and not Faculty.objects.filter(FacultyCollegeID=facultyForm.cleaned_data['EmployeeID']).count() > 0:
-
-                    # File
-                    data = request.FILES['Photo'].read()
-                    encoded_file = base64.b64encode(data).decode()
-
-                    Faculty(First = facultyForm.cleaned_data['First'], Last = facultyForm.cleaned_data['Last'], Email = request.user.email, Post = facultyForm.cleaned_data['Post'], Qualification = facultyForm.cleaned_data['Qualification'], FacultyCollegeID = facultyForm.cleaned_data['EmployeeID'], Contact = facultyForm.cleaned_data['Contact'], Address = facultyForm.cleaned_data['Address'], Photo = encoded_file, DOB = facultyForm.cleaned_data['DOB'], JoiningDate = facultyForm.cleaned_data['Joining'], Verified = False).save()
-
-                    #emailPermission = Permission.objects.get(name='Send Emails')
-                    manageMarks = Permission.objects.get(name='Manage Marks')
-                    #viewMarks = Permission.objects.get(name='View Marks')
-                    attendancePermission = Permission.objects.get(name='Manage Attendance')
-                    #attendanceViewPermission = Permission.objects.get(name='View Attendance')
-
-                    #updateInfo.first().user_permissions.add(emailPermission)
-                    updateInfo.first().user_permissions.add(attendancePermission)
-                    #updateInfo.first().user_permissions.add(attendanceViewPermission)
-                    updateInfo.first().user_permissions.add(manageMarks)
-                    #updateInfo.first().user_permissions.add(viewMarks)
-
-                    return redirect(reverse('Administration:Dashboard'))
+                # Save faculty data
+                facultyForm.save()
+                return redirect('Administration:Dashboard')
 
         elif checkStudent == 'True':
-
-            updateInfo = User.objects.filter(username=request.user.username)
-
             studentForm = StudentSetup(request.POST, request.FILES)
-
             if studentForm.is_valid():
-                updateInfo.update(first_name=studentForm.cleaned_data['First'], last_name=studentForm.cleaned_data['Last'])
+                # Save student data
+                studentForm.save()
+                return redirect('Administration:Dashboard')
 
-                if not Student.objects.filter(Email=request.user.email).count() > 0 and not Student.objects.filter(Enrollment=studentForm.cleaned_data['Enrollment']).count() > 0:
-
-                    # File
-                    data = request.FILES['Photo'].read()
-                    encoded_file = base64.b64encode(data).decode()
-
-                    Student(First = studentForm.cleaned_data['First'], Last = studentForm.cleaned_data['Last'], Email = request.user.email, Enrollment = studentForm.cleaned_data['Enrollment'], Contact = studentForm.cleaned_data['Contact'], DOB = studentForm.cleaned_data['DOB'], Category = studentForm.cleaned_data['Category'], Address = studentForm.cleaned_data['Address'], Photo = encoded_file, Department_id = Department.objects.get(id = request.POST.get('department4', '')), Course_id = Course.objects.get(id = request.POST.get('course4', '')), Branch_id = Branch.objects.get(id = request.POST.get('branch4', '')), Semester_id = Semester.objects.get(id = request.POST.get('semester4', ''))).save()
-                    
-                    '''
-                    attendanceViewPermission = Permission.objects.get(name='View Attendance')
-                    viewMarks = Permission.objects.get(name='View Marks')
-                    updateInfo.first().user_permissions.add(attendanceViewPermission)
-                    updateInfo.first().user_permissions.add(viewMarks)
-                    '''
-                    
-                    return redirect(reverse('Administration:Dashboard'))
-
-        else:
-            return render(request, 'Administration/Setup.html', {'Departments': Department.objects.all(), 'Visiblity': 'visible'})
-
-    return render(request, 'Administration/Setup.html', {'StudentForm': studentForm, 'FacultyForm': facultyForm, 'Departments': Department.objects.all(), 'Visiblity': 'invisible'})
+    return render(request, 'templates/Administration/Setup.html', {
+        'StudentForm': studentForm,
+        'FacultyForm': facultyForm,
+        'Departments': Department.objects.all(),
+        'Visiblity': 'invisible'
+    })
 
 @login_required
 def checkEnroll(request):
@@ -413,3 +376,17 @@ def updateFaculty(request):
             faculty.save()
         
     return redirect(reverse('Administration:Profile'))
+
+@login_required
+def attendance_management(request):
+    context = {
+        'user_type': 'faculty' if Faculty.objects.filter(Email=request.user.email).exists() else 'admin'
+    }
+    return render(request, 'Administration/Attendance/Management.html', context)
+
+@login_required
+def view_attendance(request):
+    context = {
+        'user_type': 'faculty' if Faculty.objects.filter(Email=request.user.email).exists() else 'admin'
+    }
+    return render(request, 'Administration/Attendance/ViewAttendance.html', context)

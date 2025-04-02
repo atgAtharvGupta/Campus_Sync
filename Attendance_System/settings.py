@@ -92,7 +92,7 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
+    
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -112,8 +112,8 @@ SOCIAL_AUTH_PIPELINE = (
 SOCIAL_AUTH_STRATEGY = 'social_django.strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social_django.models.DjangoStorage'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '940446057145-c083r2e6ea0cm8q8h6mg6tsn76nqiiae.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '886721926107-eu0qppg1ojuep74imnc0fv7bl446tpkr.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
