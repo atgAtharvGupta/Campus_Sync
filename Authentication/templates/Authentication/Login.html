@@ -47,17 +47,36 @@
 										<form class="user" method="POST">
 											{% csrf_token %}
 											<div class="form-group">
-												<p>{{ Form.Username }}</p>
-												<p>{{ Form.Password }}</p>
+												<p>{{ AdminForm.Username }}</p>
+												<p>{{ AdminForm.Password }}</p>
 											</div>
 											<label class="{{ Visiblity }} text-danger">{{ Message }}</label>
-											<button class="btn btn-primary btn-block text-white btn-user" type="submit">Login</button>
+											<button class="btn btn-primary btn-block text-white btn-user" type="submit" name="admin_login">Login</button>
 											<hr />
-											<h3 class="text-info py-3">Faculty or Student Login</h3>
-											<a class="btn btn-primary btn-block text-white btn-google btn-user" role="button" href="{% url 'social:begin' 'google-oauth2' %}"><i class="fab fa-google"></i>&nbsp; Login with Google</a>
-											<hr />
+											
 										</form>
-										<!--<div class="text-center"><a class="small" href="#">Forgot Password?</a></div>-->
+										<form class="user" method="POST">
+											{% csrf_token %}
+											<div class="form-group">
+												<select class="form-control" name="UserType" required>
+													<option value="" disabled selected>Select User Type</option>
+													<option value="student">Student</option>
+													<option value="faculty">Faculty</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<input type="email" name="Email" class="form-control form-control-user" placeholder="Email" required>
+											</div>
+											<div class="form-group">
+												<input type="password" name="Password" class="form-control form-control-user" placeholder="Password" required>
+											</div>
+											<button type="submit" class="btn btn-primary btn-user btn-block" name="student_faculty_login">Login</button>
+										</form>
+										<hr>
+										<div class="text-center">
+											<a class="small" href="{% url 'Authentication:Register' %}">New User? Create an Account!</a>
+										</div>
+										<label class="{{ Visiblity }} text-danger">{{ Message }}</label>
 									</div>
 								</div>
 								

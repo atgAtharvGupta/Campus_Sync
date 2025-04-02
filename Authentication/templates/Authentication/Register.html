@@ -1,0 +1,248 @@
+<!-- filepath: /C:/Users/Hp/Desktop/Virtualenv/Campus_Sync/Authentication/templates/Authentication/Register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Register</title>
+    {% load static %} {% include 'Resources/Head.html' %}
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <style>
+        .bg-login-image {
+            background-image: url('{% static 'Resources/images/logo.png' %}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 100%;
+            height: 100%;
+        }
+        @media (max-width: 576px) {
+            .bg-login-image {
+                display: block;
+                width: 100%;
+                height: 200px;
+            }
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+    <script>
+        function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1) {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start, c_end));
+                }
+            }
+            return "";
+        }
+
+        function typeSelect() {
+            var userType = document.getElementById("id_UserType").value;
+            if (userType === "student") {
+                document.getElementById("studentFields").style.display = "block";
+                document.getElementById("facultyFields").style.display = "none";
+            } else if (userType === "faculty") {
+                document.getElementById("studentFields").style.display = "none";
+                document.getElementById("facultyFields").style.display = "block";
+            } else {
+                document.getElementById("studentFields").style.display = "none";
+                document.getElementById("facultyFields").style.display = "none";
+            }
+        }
+
+        function onDepartmentChange() {
+            var deptid = $("#id_Department").val();
+            console.log("Department ID:", deptid);  // Debug log
+
+            $.ajax({
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                url: "{% url 'Authentication:GetCourse' %}",  // Make sure URL namespace is correct
+                type: "POST",
+                data: { depart: deptid },
+                dataType: "json",
+                success: function (response) {
+                    console.log("Courses response:", response);  // Debug log
+                    
+                    $("#id_Course").empty();
+                    $("#id_Course").append("<option value='' selected>--Select Course--</option>");
+
+                    $.each(response, function (key, value) {
+                        $("#id_Course").append("<option value='" + key + "'>" + value + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching courses:", error);
+                }
+            });
+        }
+
+        function onCourseChange() {
+            var courseid = $("#id_Course").val();
+            console.log("Course ID:", courseid);  // Debug log
+
+            $.ajax({
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                url: "{% url 'Authentication:GetBranch' %}",  // Make sure URL namespace is correct
+                type: "POST",
+                data: { course: courseid },
+                dataType: "json",
+                success: function (response) {
+                    console.log("Branches response:", response);  // Debug log
+                    
+                    $("#id_Branch").empty();
+                    $("#id_Branch").append("<option value='' selected>--Select Branch--</option>");
+
+                    $.each(response, function (key, value) {
+                        $("#id_Branch").append("<option value='" + key + "'>" + value + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching branches:", error);
+                }
+            });
+        }
+
+        function onBranchChange() {
+            var branchid = $("#id_Branch").val();
+            console.log("Branch ID:", branchid);  // Debug log
+
+            $.ajax({
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                url: "{% url 'Authentication:GetSemester' %}",  // Make sure URL namespace is correct
+                type: "POST",
+                data: { branch: branchid },
+                dataType: "json",
+                success: function (response) {
+                    console.log("Semesters response:", response);  // Debug log
+                    
+                    $("#id_Semester").empty();
+                    $("#id_Semester").append("<option value='' selected>--Select Semester--</option>");
+
+                    $.each(response, function (key, value) {
+                        $("#id_Semester").append("<option value='" + key + "'>" + value + "</option>");
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching semesters:", error);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            typeSelect();
+            $("#id_UserType").change(typeSelect);
+        });
+    </script>
+    <script>
+        {% if ShowAlert %}
+            // This will run when the page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                alert("{{ AlertMessage }}");
+                window.location.href = "{% url 'Authentication:Login' %}";  // Redirect to login page after alert
+            });
+        {% endif %}
+    </script>
+</head>
+<body class="bg-gradient-primary">
+    <div class="container center-content">
+        <div class="form-container">
+            <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card-body p-0">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Account</h4>
+                        </div>
+                        <form class="user" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Select account type</label>
+                                {{ Form.UserType }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.Email }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.FirstName }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.LastName }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.Password }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.ConfirmPassword }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.Contact }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.DOB }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.Address }}
+                            </div>
+                            <div class="form-group">
+                                {{ Form.Photo }}
+                            </div>
+                            <div id="studentFields" style="display: none;">
+                                <div class="form-group">
+                                    {{ Form.Enrollment }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Category }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Department }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Course }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Branch }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Semester }}
+                                </div>
+                            </div>
+                            <div id="facultyFields" style="display: none;">
+                                <div class="form-group">
+                                    {{ Form.EmployeeID }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Post }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Qualification }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form.Joining }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{% url 'Authentication:Login' %}">Already have an account? Login!</a>
+                        </div>
+                        <p class="{{ Visiblity }} text-danger">{{ Message }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
