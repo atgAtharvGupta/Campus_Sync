@@ -172,64 +172,140 @@
                                 {{ Form.UserType }}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.Email.id_for_label }}">Email address</label>
                                 {{ Form.Email }}
+                                {% if Form.Email.errors %}
+                                <div class="text-danger">{{ Form.Email.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.FirstName.id_for_label }}">First Name</label>
                                 {{ Form.FirstName }}
+                                {% if Form.FirstName.errors %}
+                                <div class="text-danger">{{ Form.FirstName.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.LastName.id_for_label }}">Last Name</label>
                                 {{ Form.LastName }}
+                                {% if Form.LastName.errors %}
+                                <div class="text-danger">{{ Form.LastName.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.Password.id_for_label }}">Password</label>
                                 {{ Form.Password }}
+                                {% if Form.Password.errors %}
+                                <div class="text-danger">{{ Form.Password.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.ConfirmPassword.id_for_label }}">Confirm Password</label>
                                 {{ Form.ConfirmPassword }}
+                                {% if Form.ConfirmPassword.errors %}
+                                <div class="text-danger">{{ Form.ConfirmPassword.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.Contact.id_for_label }}">Contact Number</label>
                                 {{ Form.Contact }}
+                                {% if Form.Contact.errors %}
+                                <div class="text-danger">{{ Form.Contact.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.DOB.id_for_label }}">Date of Birth</label>
                                 {{ Form.DOB }}
+                                {% if Form.DOB.errors %}
+                                <div class="text-danger">{{ Form.DOB.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.Address.id_for_label }}">Address</label>
                                 {{ Form.Address }}
+                                {% if Form.Address.errors %}
+                                <div class="text-danger">{{ Form.Address.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="form-group">
+                                <label for="{{ Form.Photo.id_for_label }}">Photo (jpg - 2 MB)</label>
                                 {{ Form.Photo }}
+                                {% if Form.Photo.errors %}
+                                <div class="text-danger">{{ Form.Photo.errors }}</div>
+                                {% endif %}
                             </div>
                             <div id="studentFields" style="display: none;">
                                 <div class="form-group">
+                                    <label for="{{ Form.Enrollment.id_for_label }}">Enrollment Number</label>
                                     {{ Form.Enrollment }}
+                                    {% if Form.Enrollment.errors %}
+                                    <div class="text-danger">{{ Form.Enrollment.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Category.id_for_label }}">Category</label>
                                     {{ Form.Category }}
+                                    {% if Form.Category.errors %}
+                                    <div class="text-danger">{{ Form.Category.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Department.id_for_label }}">Department</label>
                                     {{ Form.Department }}
+                                    {% if Form.Department.errors %}
+                                    <div class="text-danger">{{ Form.Department.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Course.id_for_label }}">Course</label>
                                     {{ Form.Course }}
+                                    {% if Form.Course.errors %}
+                                    <div class="text-danger">{{ Form.Course.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Branch.id_for_label }}">Branch</label>
                                     {{ Form.Branch }}
+                                    {% if Form.Branch.errors %}
+                                    <div class="text-danger">{{ Form.Branch.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Semester.id_for_label }}">Semester</label>
                                     {{ Form.Semester }}
+                                    {% if Form.Semester.errors %}
+                                    <div class="text-danger">{{ Form.Semester.errors }}</div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div id="facultyFields" style="display: none;">
                                 <div class="form-group">
+                                    <label for="{{ Form.EmployeeID.id_for_label }}">Employee ID</label>
                                     {{ Form.EmployeeID }}
+                                    {% if Form.EmployeeID.errors %}
+                                    <div class="text-danger">{{ Form.EmployeeID.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Post.id_for_label }}">Post</label>
                                     {{ Form.Post }}
+                                    {% if Form.Post.errors %}
+                                    <div class="text-danger">{{ Form.Post.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Qualification.id_for_label }}">Qualifications</label>
                                     {{ Form.Qualification }}
+                                    {% if Form.Qualification.errors %}
+                                    <div class="text-danger">{{ Form.Qualification.errors }}</div>
+                                    {% endif %}
                                 </div>
                                 <div class="form-group">
+                                    <label for="{{ Form.Joining.id_for_label }}">Date of Joining</label>
                                     {{ Form.Joining }}
+                                    {% if Form.Joining.errors %}
+                                    <div class="text-danger">{{ Form.Joining.errors }}</div>
+                                    {% endif %}
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
